@@ -8,7 +8,7 @@ const PORT = process.env.PORT || 5000;
 
 // Import routes dan middleware
 const usersRoutes = require("./routes/users");
-const middlewareLogRequest = require("./middleware/logs");
+const logRequest = require("./middleware/logs");
 
 // MongoDB Connection
 const connectDB = async () => {
@@ -58,7 +58,7 @@ const corsOptions = {
 
 // Middleware
 app.use(cors(corsOptions));
-app.use(middlewareLogRequest);
+app.use(logRequest);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
