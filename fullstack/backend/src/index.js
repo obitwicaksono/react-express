@@ -62,7 +62,7 @@ app.use(middlewareLogRequest);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Custom middleware (tetap pakai yang lama)
+// Custom middleware
 app.use((req, res, next) => {
   console.log("middleware 1");
   next();
@@ -74,7 +74,8 @@ app.use((req, res, next) => {
 });
 
 // Routes
-app.use("/routes/users", usersRoutes);
+app.use("/api/users", usersRoutes); // Gunakan path yang lebih standar
+
 
 // Health check routes
 app.get("/", (req, res) => {
