@@ -1,38 +1,41 @@
-const dbPool = require('../config/database')
+const mongoose = require('mongoose');
 
-const getAllUsers = () => {
-    const SQLQuery = 'SELECT * FROM users';
-    return dbPool.execute(SQLQuery);
-}
+// 1. Definisikan Schema (struktur data)
+const userSchema = new mongoose.Schema({
+  name: {
+    type: String,
+    required: true, // Wajib diisi
+  },
+  email: {
+    type: String,
+    required: true,
+    unique: true, // Email harus unik
+  },
+  address: {
+    type: String,
+    default: "", // Opsional (default kosong)
+  },
+  // Bisa ditambah field lain sesuai kebutuhan
+}, { timestamps: true }); // Otomatis tambahkan `createdAt` dan `updatedAt`
 
-const getUserById = (idUser) => {
-    const SQLQuery = 'SELECT name, email, address FROM users WHERE id = ?';
-    return dbPool.execute(SQLQuery, [idUser]);
-}
+// 2. Buat Model dari Schema
+const User = mongoose.model('User', userSchema);
 
-const createNewUser = (body) => {
-    const SQLQuery = `  INSERT INTO users (name, email, address)
-                        VALUES ('${body.name}', '${body.email}', '${body.address}')`;
-    return dbPool.execute(SQLQuery);
-}
-
-const updateUser = (body, idUser) => {
-    const SQLQuery = `  UPDATE users
-                        SET name='${body.name}', email='${body.email}', address='${body.address}'
-                        WHERE id='${idUser}'`;
-    return dbPool.execute(SQLQuery);
-}
-
-const deleteUser = (idUser) => {
-    const SQLQuery = `DELETE FROM users WHERE id=${idUser}`;
-    return dbPool.execute(SQLQuery);
-}
-
-
+// 3. Export fungsi-fungsi untuk interaksi dengan database
 module.exports = {
-    getAllUsers,
-    createNewUser,
-    updateUser,
-    deleteUser,
-    getUserById,
-}
+  // Mengambil semua user
+  getAllUsers: () => User.find(),
+
+  // Mengambil user berdasarkan ID
+  getUserById: (idUser) => User.findById(idUser),
+
+  // Membuat user baru
+  createNewUser: (body) => User.create(body),
+
+  // Memperbarui user
+  updateUser: (body, idUser) => 
+    User.findByIdAndUpdate(idUser, body, { new: true }), // `new: true` mengembalikan data terbaru
+
+  // Menghapus user
+  deleteUser: (idUser) => User.findByIdAndDelete(idUser),
+};
