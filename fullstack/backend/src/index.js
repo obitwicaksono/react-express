@@ -74,7 +74,7 @@ app.use((req, res, next) => {
 });
 
 // Routes
-app.use("/users", usersRoutes);
+app.use("/routes/users", usersRoutes);
 
 // Health check routes
 app.get("/", (req, res) => {
