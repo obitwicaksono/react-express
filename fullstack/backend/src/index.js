@@ -58,7 +58,7 @@ const corsOptions = {
 
 // Middleware
 app.use(cors(corsOptions));
-app.use(logRequest());
+app.use(logRequest);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 

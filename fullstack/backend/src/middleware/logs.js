@@ -1,4 +1,4 @@
-const logRequest = (req, res, next) => {
+function logRequest(req, res, next) {
   console.log("tejadi request ke PATH: " , req.path);
   next();
 };
