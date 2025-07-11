@@ -1,10 +1,11 @@
 {
   "name": "express-js",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "Express.js API with MongoDB",
+  "main": "src/index.js",
   "scripts": {
-    "start": "nodemon src/index.js",
+    "start": "node src/index.js",
+    "dev": "nodemon src/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Obit Wicaksono",
@@ -13,7 +14,13 @@
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
     "express": "^4.19.2",
-    "mysql2": "^3.11.3",
+    "mongoose": "^8.16.3"
+  },
+  "devDependencies": {
     "nodemon": "^3.1.4"
+  },
+  "engines": {
+    "node": ">=16.0.0",
+    "npm": ">=8.0.0"
   }
 }
